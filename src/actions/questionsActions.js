@@ -1,74 +1,72 @@
-import * as categoriesConstants from "../constants/categoriesConstants";
-import categoriesServices from "../services/categoriesServices";
+import * as questionsConstants from "../constants/questionsConstants";
+import questionsServices from "../services/questionsServices";
 
-export const addCategory = async (dispatch, category, token) => {
-  dispatch({ type: categoriesConstants.ADD_CATEGORY_REQUEST });
-  const { data, isAdded, error } = await categoriesServices.addCategory(
-    category,
+export const fetchQuestionsByQuiz = async (dispatch, quizId, token) => {
+  dispatch({ type: questionsConstants.FETCH_QUESTIONS_REQUEST });
+  const data = await questionsServices.fetchQuestionsByQuiz(quizId, token);
+  if (data) {
+    return dispatch({
+      type: questionsConstants.FETCH_QUESTIONS_SUCCESS,
+      payload: data,
+    });
+  } else {
+    return dispatch({
+      type: questionsConstants.FETCH_QUESTIONS_FAILURE,
+      payload: data,
+    });
+  }
+};
+
+export const addQuestion = async (dispatch, question, token) => {
+  dispatch({ type: questionsConstants.ADD_QUESTION_REQUEST });
+  const { data, isAdded, error } = await questionsServices.addQuestion(
+    question,
     token
   );
   if (isAdded) {
     return dispatch({
-      type: categoriesConstants.ADD_CATEGORY_SUCCESS,
+      type: questionsConstants.ADD_QUESTION_SUCCESS,
       payload: data,
     });
   } else {
     return dispatch({
-      type: categoriesConstants.ADD_CATEGORY_FAILURE,
+      type: questionsConstants.ADD_QUESTION_FAILURE,
       payload: error,
     });
   }
 };
 
-export const fetchCategories = async (dispatch, token) => {
-  dispatch({ type: categoriesConstants.FETCH_CATEGORIES_REQUEST });
-  const data = await categoriesServices.fetchCategories(token);
-  if (data) {
-    return dispatch({
-      type: categoriesConstants.FETCH_CATEGORIES_SUCCESS,
-      payload: data,
-    });
-  } else {
-    return dispatch({
-      type: categoriesConstants.FETCH_CATEGORIES_FAILURE,
-      payload: data,
-    });
-  }
-};
-
-export const updateCategory = async (dispatch, category, token) => {
-  dispatch({ type: categoriesConstants.UPDATE_CATEGORY_REQUEST });
-  const { data, isUpdated, error } = await categoriesServices.updateCategory(
-    category,
-    token
-  );
-  if (isUpdated) {
-    return dispatch({
-      type: categoriesConstants.UPDATE_CATEGORY_SUCCESS,
-      payload: data,
-    });
-  } else {
-    return dispatch({
-      type: categoriesConstants.UPDATE_CATEGORY_FAILURE,
-      payload: error,
-    });
-  }
-};
-
-export const deleteCategory = async (dispatch, catId, token) => {
-  dispatch({ type: categoriesConstants.DELETE_CATEGORY_REQUEST });
-  const { isDeleted, error } = await categoriesServices.deleteCategory(
-    catId,
+export const deleteQuestion = async (dispatch, quesId, token) => {
+  dispatch({ type: questionsConstants.DELETE_QUESTION_REQUEST });
+  const { isDeleted, error } = await questionsServices.deleteQuestion(
+    quesId,
     token
   );
   if (isDeleted) {
     return dispatch({
-      type: categoriesConstants.DELETE_CATEGORY_SUCCESS,
-      payload: catId,
+      type: questionsConstants.DELETE_QUESTION_SUCCESS,
+      payload: quesId,
     });
   } else {
     return dispatch({
-      type: categoriesConstants.DELETE_CATEGORY_FAILURE,
+      type: questionsConstants.DELETE_QUESTION_FAILURE,
+      payload: error,
+    });
+  }
+};
+
+export const updateQuestion = async (dispatch, question, token) => {
+  dispatch({ type: questionsConstants.UPDATE_QUESTION_REQUEST });
+  const { data, isUpdated, error } =
+    await questionsServices.updateQuestion(question, token);
+  if (isUpdated) {
+    return dispatch({
+      type: questionsConstants.UPDATE_QUESTION_SUCCESS,
+      payload: data,
+    });
+  } else {
+    return dispatch({
+      type: questionsConstants.UPDATE_QUESTION_FAILURE,
       payload: error,
     });
   }
