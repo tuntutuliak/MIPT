@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>info.bitcom</groupId>
-	<artifactId>nabei</artifactId>
+	<artifactId>platform</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>nabei</name>
-	<description>Exam platform  </description>
+	<name>platform</name>
+	<description>Exam platform</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -63,9 +63,10 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>info.bitcom.platform.ExamPlatform</mainClass>
 					<excludes>
 						<exclude>
-							<groupId>org.project-lombok</groupId>
+							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
